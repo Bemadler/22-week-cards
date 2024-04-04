@@ -8,6 +8,7 @@
   align-self: center;
   justify-content: center;
   border: 3px solid #76b446d7;
+  margin-top:8%;
 }
 .SmallCard {
   border: 1px solid #ccc;
@@ -16,10 +17,31 @@
   border-radius: 5px;
   padding: 20px;
   margin-bottom: 20px;
-  margin-top: 20px;
+  margin-top: 25px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+img{
+  width: 40px;
+  height: 40px;
+  margin-top: 25%;
+}
+
+.ArrowLeft{
+  margin-right: 35px;
+}
+.ArrowLeft:hover{
+  border-radius: 20px;
+  box-shadow: 0 2px 4px rgba(124, 132, 10, 0.85);
+}
+
+.ArrowRight{
+  margin-left: 35px;
+}
+.ArrowRight:hover{
+  border-radius: 20px;
+  box-shadow: 0 2px 4px rgba(124, 132, 10, 0.85);
+}
 .SmallCard:hover{
   box-shadow: 0 2px 4px rgba(124, 132, 10, 0.85);
 }

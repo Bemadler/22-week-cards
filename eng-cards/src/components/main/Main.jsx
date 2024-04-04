@@ -1,7 +1,9 @@
+// import ArrowRight from '../../assets/icons/ArrowRight.png';
+// import ArrowLeft from '../../assets/icons/ArrowLeft.png';
 // import React, { useState, useEffect } from 'react';
-// import styles from './Main.module.css'; 
+// import styles from './Main.module.css';
 
-// const Main = ({ onCheckButton, onNextCard }) => {
+// const Main = () => {
 //   const [word, setWord] = useState(null);
 //   const [showTranslation, setShowTranslation] = useState(false);
 
@@ -15,57 +17,60 @@
 //       const data = await response.json();
 //       const randomIndex = Math.floor(Math.random() * data.length);
 //       setWord(data[randomIndex]);
+//       setShowTranslation(false); // Скрыть перевод при загрузке нового слова
 //     } catch (error) {
 //       console.error('Error fetching word:', error);
 //     }
 //   };
 
-//   const handleCheckButton = () => {
-//     setShowTranslation(true);
-//   };
-
-//   const handleNextCard = () => {
-//     setShowTranslation(false);
-//     fetchWord();
+//   const toggleTranslation = () => {
+//     setShowTranslation(!showTranslation);
 //   };
 
 //   return (
 //     <div className={styles.card}>
-//       <h2>Карточка с новым словом</h2>
+//       <img onClick={handleClick} className={styles.ArrowLeft} src={ArrowLeft} alt="arrow left"/> 
+
 //       {word && (
-//         <div>
+//         <div className={styles.SmallCard}>
+//                 <h2 onClick={fetchWord} className={styles.MainCardHeader}>Карточка с новым словом</h2>
 //           <h2>{word.english}</h2>
-//           <p>{showTranslation ? word.russian : '???'}</p>
-//           <button onClick={handleCheckButton}>Check Translation</button>
-//           <button onClick={handleNextCard}>Next Word</button>
+//           {word.transcription && <p className={styles.transcription}>{word.transcription}</p>}
+//           {showTranslation && <h2 className={styles.green}>{word.russian}</h2>}
+//           {!showTranslation && <button onClick={toggleTranslation}>Показать перевод</button>}
 //         </div>
 //       )}
+//       <img onClick={handleClick} className={styles.ArrowRight} src={ArrowRight} alt="arrow right"/> 
+
 //     </div>
 //   );
 // };
 
 // export default Main;
 
+
+import ArrowRight from '../../assets/icons/ArrowRight.png';
+import ArrowLeft from '../../assets/icons/ArrowLeft.png';
 import React, { useState, useEffect } from 'react';
 import styles from './Main.module.css';
 
 const Main = () => {
-  const [word, setWord] = useState(null);
+  const [words, setWords] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [showTranslation, setShowTranslation] = useState(false);
 
   useEffect(() => {
-    fetchWord();
+    fetchWords();
   }, []);
 
-  const fetchWord = async () => {
+  const fetchWords = async () => {
     try {
       const response = await fetch('https://itgirlschool.justmakeit.ru/api/words');
       const data = await response.json();
-      const randomIndex = Math.floor(Math.random() * data.length);
-      setWord(data[randomIndex]);
-      setShowTranslation(false); // Скрыть перевод при загрузке нового слова
+      setWords(data);
+      setShowTranslation(false); // Скрыть перевод при загрузке новых слов
     } catch (error) {
-      console.error('Error fetching word:', error);
+      console.error('Error fetching words:', error);
     }
   };
 
@@ -73,18 +78,40 @@ const Main = () => {
     setShowTranslation(!showTranslation);
   };
 
+  const handleNextWord = () => {
+    if (currentIndex === words.length - 1) {
+      alert("Слова закончились! Можете дополнить вашу библиотеку слов в блоке ниже!");
+      return;
+    }
+    setCurrentIndex(prevIndex => prevIndex + 1);
+    setShowTranslation(false); // Скрыть перевод при переключении на следующее слово
+  };
+
+  const handlePrevWord = () => {
+    if (currentIndex === 0) return;
+    setCurrentIndex(prevIndex => prevIndex - 1);
+    setShowTranslation(false); // Скрыть перевод при переключении на предыдущее слово
+  };
+
+  const currentWordIndex = currentIndex + 1;
+  const totalWordsCount = words.length;
+
   return (
     <div className={styles.card}>
+      <img onClick={handlePrevWord} className={styles.ArrowLeft} src={ArrowLeft} alt="arrow left"/> 
 
-      {word && (
+      {words.length > 0 && (
         <div className={styles.SmallCard}>
-                <h2 onClick={fetchWord} className={styles.MainCardHeader}>Карточка с новым словом</h2>
-          <h2>{word.english}</h2>
-          {word.transcription && <p className={styles.transcription}>{word.transcription}</p>}
-          {showTranslation && <h2 className={styles.green}>{word.russian}</h2>}
+          <h2 className={styles.MainCardHeader}>Карточка с новым словом</h2>
+          <h2>{words[currentIndex].english}</h2>
+          {words[currentIndex].transcription && <p className={styles.transcription}>{words[currentIndex].transcription}</p>}
+          {showTranslation && <h2 className={styles.green}>{words[currentIndex].russian}</h2>}
           {!showTranslation && <button onClick={toggleTranslation}>Показать перевод</button>}
+          <p>{currentWordIndex}/{totalWordsCount}</p>
         </div>
       )}
+
+      <img onClick={handleNextWord} className={styles.ArrowRight} src={ArrowRight} alt="arrow right"/> 
     </div>
   );
 };
