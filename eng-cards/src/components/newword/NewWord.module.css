@@ -1,5 +1,5 @@
 .button{
-    margin-top: 30px;
+    margin-top: 10px;
     background-color: #2a8825;
     color: #fff;
     border: none;
@@ -8,9 +8,8 @@
     cursor: pointer;
     font-size: 16px;
     direction: flex;
-    margin-left: 50px;
+    margin-left: 40px;
 }
-
 input{
     border-radius: 5px;
     padding: 7px 15px;
@@ -19,6 +18,7 @@ input{
     margin-bottom: 4%;
 }
 .NewWord{
+    padding-top: 20%;
     border-radius: 5px;
     min-width: 100vh;
     max-width:200vh;
@@ -27,5 +27,4 @@ input{
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid #ccc;
 }

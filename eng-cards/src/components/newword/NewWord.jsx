@@ -62,6 +62,7 @@ const NewWord = ({ onAddWord }) => {
         />
         <button type="submit" className={styles.button}>Добавить</button>
       </form>
+      
     </div>
   );
 };

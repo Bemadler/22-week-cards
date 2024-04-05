@@ -1,11 +1,12 @@
 .wordListTable {
     border-collapse: collapse;
     width: 100%;
-    margin-top: 20px;
+    margin-top: 30%;
+    padding-bottom: 10px;
 }
 
 .wordListTable th {
-    background-color: #b0d7a3;;
+    background-color:  #b8f1b5;;;
     border: 1px solid #ddd;
     padding: 8px;
     text-align: left;

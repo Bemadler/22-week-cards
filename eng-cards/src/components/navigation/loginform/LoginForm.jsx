@@ -1,16 +1,11 @@
 import React, { useState } from 'react';
-import styles from './LoginForm.module.css';
+import './LoginForm.css';
 
 const LoginForm = () => {
-  const [isOpen, setIsOpen] = useState(false);
   const [loginData, setLoginData] = useState({
     email: '',
     password: ''
   });
-
-  const toggleForm = () => {
-    setIsOpen(!isOpen);
-  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,34 +17,32 @@ const LoginForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Добавьте обработчик отправки данных
+    
   };
 
   return (
-    <>
-      <div onClick={toggleForm} className={styles.formToggle}>Войти</div>
-      {isOpen && (
-        <div className={styles.loginForm}>
-          <form onSubmit={handleSubmit}>
-            <input
-              type="email"
-              name="email"
-              placeholder="Email"
-              value={loginData.email}
-              onChange={handleChange}
-            />
-            <input
-              type="password"
-              name="password"
-              placeholder="Пароль"
-              value={loginData.password}
-              onChange={handleChange}
-            />
-            <button type="submit">Войти</button>
-          </form>
-        </div>
-      )}
-    </>
+    <div className="loginContainer">
+      <div className="loginForm">
+        <form onSubmit={handleSubmit}>
+          <input className="inputLogin"
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={loginData.email}
+            onChange={handleChange}
+          />
+          <input
+          className="inputLogin"
+            type="password"
+            name="password"
+            placeholder="Пароль"
+            value={loginData.password}
+            onChange={handleChange}
+          />
+          <button type="submit">Войти</button>
+        </form>
+      </div>
+    </div>
   );
 };
 

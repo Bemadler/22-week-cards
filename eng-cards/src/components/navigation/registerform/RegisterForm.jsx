@@ -1,17 +1,13 @@
 import React, { useState } from 'react';
-import styles from './RegisterForm.module.css';
+import './RegisterForm.css';
 
 const RegisterForm = () => {
-  const [isOpen, setIsOpen] = useState(false);
+
   const [registerData, setRegisterData] = useState({
     email: '',
     password: '',
     confirmPassword: ''
   });
-
-  const toggleForm = () => {
-    setIsOpen(!isOpen);
-  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -23,16 +19,14 @@ const RegisterForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Добавьте обработчик отправки данных
   };
 
   return (
-    <>
-      <div onClick={toggleForm} className={styles.formToggle}>Зарегистрироваться</div>
-      {isOpen && (
-        <div className={styles.registerForm}>
+
+        <div className="registerForm">
           <form onSubmit={handleSubmit}>
             <input
+             className="inputRegister"
               type="email"
               name="email"
               placeholder="Email"
@@ -40,6 +34,7 @@ const RegisterForm = () => {
               onChange={handleChange}
             />
             <input
+             className="inputRegister"
               type="password"
               name="password"
               placeholder="Пароль"
@@ -47,17 +42,16 @@ const RegisterForm = () => {
               onChange={handleChange}
             />
             <input
+              className="inputRegister"
               type="password"
               name="confirmPassword"
               placeholder="Подтвердите пароль"
               value={registerData.confirmPassword}
               onChange={handleChange}
             />
-            <button type="submit">Зарегистрироваться</button>
+            <button  className="buttonRegister" type="submit">Зарегистироваться</button>
           </form>
         </div>
-      )}
-    </>
   );
 };
 
